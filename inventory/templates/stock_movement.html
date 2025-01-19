@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="text-align: center; font-size: 2rem; color: #4e54c8;">Stock Movement</h1>
+
+<div style="max-width: 600px; margin: 20px auto; background: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+<form method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+    
+    {% if form.errors %}
+    <div style="background-color: #ffcccc; color: #990000; padding: 10px; border-radius: 5px; margin-top: 10px;">
+        <ul style="list-style-type: none; padding: 0;">
+        {% for field in form %}
+            {% for error in field.errors %}
+            <li><strong>{{ field.label }}</strong>: {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    
+    <button type="submit" style="background: linear-gradient(90deg, #4e54c8, #8f94fb); color: #fff; border: none; padding: 12px 20px; border-radius: 5px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.3s;">
+    Record Movement
+    </button>
+</form>
+</div>
+{% endblock %}

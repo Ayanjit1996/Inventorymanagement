@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="page-title">Sale Orders</h1>
+
+{% if sale_orders %}
+<div class="sort-buttons">
+    <button onclick="sortTableByField('category')">Sort by Category</button>
+    <button onclick="sortTableByField('status')">Sort by Status</button>
+</div>
+
+<div class="table-container">
+    <table id="sale-orders-table" class="sale-orders-table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Sale Date</th>
+                <th>Status</th>
+                <th>Notes</th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in sale_orders %}
+            <tr>
+                <td>{{ order.product.name }}</td>
+                <td>{{ order.product.category }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.total_amount }}</td>
+                <td>{{ order.sale_date }}</td>
+                <td>
+                    <span class="status {{ order.status|lower }}">{{ order.status }}</span>
+                </td>
+                <td>{{ order.notes|default:"Status updated" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="no-orders">No sale orders found.</p>
+{% endif %}
+
+<script>
+    function sortTableByField(field) {
+        const table = document.getElementById("sale-orders-table");
+        const rows = Array.from(table.rows).slice(1);
+        let ascending = table.dataset.sortOrder !== "asc";
+
+        rows.sort((rowA, rowB) => {
+            let cellA, cellB;
+
+            if (field === 'category') {
+                cellA = rowA.cells[1].textContent.trim(); 
+                cellB = rowB.cells[1].textContent.trim();
+            } else if (field === 'status') {
+                cellA = rowA.cells[5].textContent.trim();
+                cellB = rowB.cells[5].textContent.trim();
+            }
+
+            return ascending
+                ? cellA.localeCompare(cellB)
+                : cellB.localeCompare(cellA);
+        });
+
+        const tbody = table.querySelector("tbody");
+        tbody.innerHTML = "";
+        rows.forEach(row => tbody.appendChild(row));
+        table.dataset.sortOrder = ascending ? "asc" : "desc";
+    }
+</script>
+
+<style>
+.page-title {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.sort-buttons {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sort-buttons button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.sort-buttons button:hover {
+    background-color: #0056b3;
+}
+
+.table-container {
+    width: 90%;
+    margin: 0 auto;
+    overflow-x: auto;
+    margin-top: 30px;
+}
+
+.sale-orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+}
+
+.sale-orders-table th, .sale-orders-table td {
+    padding: 12px;
+    text-align: left;
+    font-size: 1rem;
+    color: #333;
+}
+
+.sale-orders-table th {
+    background-color: #007BFF;
+    color: white;
+    font-weight: 600;
+}
+
+.sale-orders-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.sale-orders-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.sale-orders-table td span.status {
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.sale-orders-table td span.status.pending {
+    background-color: #ffcc00;
+}
+
+.sale-orders-table td span.status.completed {
+    background-color: #28a745;
+}
+
+.sale-orders-table td span.status.cancelled {
+    background-color: #dc3545;
+}
+</style>
+{% endblock %}

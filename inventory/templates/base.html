@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Inventory Management System{% endblock %}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(90deg, #4e54c8, #8f94fb);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        nav ul li {
+            margin: 5px 0;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 1rem;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul li a.active {
+            background-color: #ffdd59;
+            color: #333;
+            font-weight: 500;
+            border-radius: 8px;
+        }
+
+        main {
+            padding: 30px;
+            background-color: #ffffff;
+            margin: 20px auto;
+            max-width: 1000px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: linear-gradient(90deg, #8f94fb, #4e54c8);
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            font-size: 1rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+        a {
+            transition: color 0.3s ease-in-out;
+        }
+
+        a:hover {
+            color: #ffdd59;
+        }
+        .active, a:hover {
+            outline: 2px solid #ffdd59;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Inventory Management System</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
+                <li><a href="{% url 'add_product' %}" class="{% if request.resolver_match.url_name == 'add_product' %}active{% endif %}">Add Product</a></li>
+                <li><a href="{% url 'list_products' %}" class="{% if request.resolver_match.url_name == 'list_products' %}active{% endif %}">List Products</a></li>
+                <li><a href="{% url 'add_supplier' %}" class="{% if request.resolver_match.url_name == 'add_supplier' %}active{% endif %}">Add Supplier</a></li>
+                <li><a href="{% url 'list_suppliers' %}" class="{% if request.resolver_match.url_name == 'list_suppliers' %}active{% endif %}">List Suppliers</a></li>
+                <li><a href="{% url 'stock_movement' %}" class="{% if request.resolver_match.url_name == 'stock_movement' %}active{% endif %}">Stock Movement</a></li>
+                <li><a href="{% url 'create_sale_order' %}" class="{% if request.resolver_match.url_name == 'create_sale_order' %}active{% endif %}">Create Sale Order</a></li>
+                <li><a href="{% url 'fetch_pending_orders' %}" class="{% if request.resolver_match.url_name == 'fetch_pending_orders' %}active{% endif %}">Complete Sale Order</a></li>
+                <li><a href="{% url 'cancel_sale_order' %}" class="{% if request.resolver_match.url_name == 'cancel_sale_order' %}active{% endif %}">Cancel Sale Order</a></li>
+                <li><a href="{% url 'list_sale_orders' %}" class="{% if request.resolver_match.url_name == 'list_sale_orders' %}active{% endif %}">List Sale Orders</a></li>
+                <li><a href="{% url 'stock_report' %}" class="{% if request.resolver_match.url_name == 'stock_report' %}active{% endif %}">Stock Report</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>2025 Inventory Management System.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}Cancel Sale Order{% endblock %}
+{% block content %}
+    <div class="cancel-order-container">
+        <h2>Cancel a Sale Order</h2>
+        <p>Select an order to cancel.</p>
+
+        {% if sale_orders %}
+            <form method="POST" class="cancel-order-form">
+                {% csrf_token %}
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                            <th>Sale Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in sale_orders %}
+                            <tr>
+                                <td>{{ order.product.name }}</td>
+                                <td>{{ order.quantity }}</td>
+                                <td>{{ order.total_amount }}</td>
+                                <td>{{ order.sale_date }}</td>
+                                <td>{{ order.status }}</td>
+                                <td>
+                                    {% if order.status == 'PENDING' %}
+                                        <button type="submit" name="cancel_order" value="{{ order.id }}" class="btn-cancel">Cancel Order</button>
+                                    {% else %}
+                                        <span class="btn-cannot-cancel">Cannot Cancel</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+        {% else %}
+            <p>No pending orders to cancel.</p>
+        {% endif %}
+    </div>
+
+    <style>
+        .cancel-order-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .cancel-order-container h2 {
+            color: #4e54c8;
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+
+        .cancel-order-container p {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .order-table th, .order-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+
+        .order-table th {
+            background-color: #4e54c8;
+            color: white;
+        }
+
+        .order-table td {
+            background-color: #f9f9f9;
+        }
+
+        .btn-cancel {
+            background-color: #ff6666;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-cancel:hover {
+            background-color: #ff4444;
+        }
+
+        .btn-cannot-cancel {
+            color: #999;
+            font-weight: bold;
+        }
+
+        .cancel-order-form {
+            text-align: left;
+        }
+
+        .cancel-order-form button {
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .cancel-order-container {
+                padding: 15px;
+            }
+
+            .cancel-order-container h2 {
+                font-size: 1.6rem;
+            }
+
+            .order-table th, .order-table td {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+        }
+    </style>
+{% endblock %}

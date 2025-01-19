@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="page-title">Product Inventory</h1>
+
+  {% if products %}
+    <div class="table-container">
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stock Quantity</th>
+            <th>Supplier</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in products %}
+            <tr>
+              <td>{{ product.name }}</td>
+              <td>{{ product.description }}</td>
+              <td>{{ product.price }}</td>
+              <td>{{ product.stock_quantity }}</td>
+              <td>{{ product.supplier.name }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="no-products">No products found in the inventory.</p>
+  {% endif %}
+  
+  <style>
+    .page-title {
+      text-align: center;
+      color: #333;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    .table-container {
+      width: 80%;
+      margin: 0 auto;
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    .product-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+    }
+
+    .product-table th, .product-table td {
+      padding: 12px;
+      text-align: left;
+      color: #333;
+      font-size: 1rem;
+    }
+
+    .product-table th {
+      background-color: #007BFF;
+      color: white;
+      font-weight: 600;
+    }
+
+    .product-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .product-table tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .no-products {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #888;
+      margin-top: 20px;
+    }
+  </style>
+{% endblock %}

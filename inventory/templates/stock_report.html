@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="stock-levels-container">
+<h1>Stock Levels</h1>
+
+{% if stock_levels %}
+    <table class="stock-levels-table">
+    <thead>
+        <tr>
+        <th>Product Name</th>
+        <th>Current Stock Level</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in stock_levels %}
+        <tr>
+            <td>{{ entry.product.name }}</td>
+            <td>{{ entry.current_stock }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% else %}
+    <p>No products found.</p>
+{% endif %}
+</div>
+
+<style>
+.stock-levels-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stock-levels-container h1 {
+    color: #4e54c8;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.stock-levels-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.stock-levels-table th, .stock-levels-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.stock-levels-table th {
+    background-color: #4e54c8;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.stock-levels-table td {
+    background-color: #f9f9f9;
+    font-size: 1rem;
+}
+
+.stock-levels-table tr:nth-child(even) td {
+    background-color: #f1f1f1;
+}
+
+.stock-levels-table tr:hover td {
+    background-color: #e8e8e8;
+}
+
+.stock-levels-container p {
+    color: #555;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .stock-levels-container {
+    padding: 15px;
+    }
+
+    .stock-levels-container h1 {
+    font-size: 1.8rem;
+    }
+
+    .stock-levels-table th, .stock-levels-table td {
+    padding: 10px;
+    }
+}
+</style>
+{% endblock %}

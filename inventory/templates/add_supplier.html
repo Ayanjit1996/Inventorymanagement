@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}Add Supplier{% endblock %}
+{% block content %}
+    <h2 class="page-title">Add a New Supplier</h2>
+
+    <form method="POST" class="form-container">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.name.id_for_label }}" class="label">Supplier Name:</label>
+            {{ form.name }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.contact_email.id_for_label }}" class="label">Contact Email:</label>
+            {{ form.contact_email }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.contact_phone.id_for_label }}" class="label">Contact Phone:</label>
+            {{ form.contact_phone }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.address.id_for_label }}" class="label">Address:</label>
+            {{ form.address }}
+        </div>
+
+        {% if form.errors %}
+            <div class="error-message">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
+        <button type="submit" class="submit-button">Add Supplier</button>
+    </form>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #007BFF;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .form-container {
+            max-width: 650px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .form-container:hover {
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1rem;
+            color: #444;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .form-group .input-field:focus {
+            outline: none;
+            border-color: #007BFF;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .submit-button {
+            background-color: #007BFF;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .error-message ul {
+            padding: 0;
+            list-style-type: none;
+            margin: 0;
+        }
+
+        .error-message ul li {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}

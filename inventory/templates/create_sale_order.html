@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Create Sale Order</h1>
+
+<div class="form-container">
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <!-- Display form errors -->
+    {% if form.errors %}
+    <div class="error-messages">
+        <ul>
+        {% for field in form %}
+            {% for error in field.errors %}
+            <li><strong>{{ field.label }}</strong>: {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <button type="submit" class="submit-button">Create Sale Order</button>
+</form>
+</div>
+
+<style>
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-container .submit-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.form-container .submit-button:hover {
+    background-color: #0056b3;
+}
+
+.error-messages {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.error-messages ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.error-messages li {
+    margin-bottom: 5px;
+}
+
+.error-messages strong {
+    font-weight: bold;
+}
+</style>
+{% endblock %}

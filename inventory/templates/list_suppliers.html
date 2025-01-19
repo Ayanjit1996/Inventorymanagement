@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+<h1 class="page-title">Suppliers List</h1>
+
+{% if suppliers %}
+    <table class="supplier-table">
+    <thead>
+        <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for supplier in suppliers %}
+        <tr>
+            <td>{{ supplier.name }}</td>
+            <td>{{ supplier.contact_email }}</td>
+            <td>{{ supplier.contact_phone }}</td>
+            <td>{{ supplier.address }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% else %}
+    <p class="no-suppliers">No suppliers found.</p>
+{% endif %}
+</div>
+
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+    text-align: center;
+    color: #007BFF;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.supplier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.supplier-table th,
+.supplier-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+
+.supplier-table th {
+    background-color: #007BFF;
+    color: white;
+    font-weight: bold;
+}
+
+.supplier-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.supplier-table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.no-suppliers {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #777;
+    margin-top: 20px;
+}
+</style>
+{% endblock %}
