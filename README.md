@@ -42,8 +42,8 @@ It is a web-based application designed to manage products, suppliers, stock move
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd inventorysystem
+   git clone https://github.com/Ayanjit1996/Inventorymanagement.git
+   cd Inventorymanagement
    ```
 
 2. Set up a virtual environment:
